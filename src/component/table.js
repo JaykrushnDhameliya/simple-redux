@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { DataGrid } from '@mui/x-data-grid';
 
 import { useSelector, useDispatch } from 'react-redux';
-// import { storeData, getAllData, getAllDataApi } from './Form/formSlice'
-// import {fetchALLDatas} from "./Form/formApi";
+import { storeData, getAllData, getAllDataApi } from './Form/formSlice'
+import {fetchALLDatas} from "./Form/formApi";
 import axios from 'axios';
 const columns = [
     { field: 'firstName', headerName: 'First name', width: 130 },
@@ -11,26 +11,26 @@ const columns = [
 ];
 
 export default function Table() {
-    // const allCars = useSelector(getAllData);
-    // const allDataApi=useSelector(getAllDataApi)
-    // const dispatch = useDispatch()
-    const [data, setdata] = useState([])
+    const allCars = useSelector(getAllData);
+    const allDataApi=useSelector(getAllDataApi)
+    const dispatch = useDispatch()
+    // const [data, setdata] = useState([])
     // const rows = allCars
     const apiGet = async () => {
 
-        // dispatch(fetchALLDatas())
+        dispatch(fetchALLDatas())
 
-        const api= await axios.get('http://localhost:4000/data')
-        setdata(api.data)
+        // const api= await axios.get('http://localhost:4000/data')
+        // setdata(api.data)
     }
     useEffect(() => {
         apiGet()
     }, []);
-    // console.log(allDataApi,"allDataApi");
+    console.log(allDataApi,"allDataApi");
     return (
         <div style={{ height: 400, width: '100%' }}>
             <DataGrid
-                rows={data.length > 0 && data}
+                rows={allDataApi.length > 0 && allDataApi}
                 columns={columns}
                 initialState={{
                     pagination: {
